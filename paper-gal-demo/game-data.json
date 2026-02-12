@@ -1,0 +1,231 @@
+{
+  "meta": {
+    "title": "AI-Assisted Port Selection for Fluid Antenna Systems",
+    "authors": ["Yifei Li"],
+    "redirectUrl": "https://meteorite-official.github.io/store-2026-02/", 
+    "endCtaText": "去看看更多 / Continue"
+  },
+  "labels": {
+    "audiences": {
+      "expert": "同行/专家",
+      "informed": "有基础",
+      "lay": "外行"
+    },
+    "guides": {
+      "senpai": "温柔学姐",
+      "kouhai": "元气学妹",
+      "senior": "稳重师兄"
+    }
+  },
+  "scenes": [
+    {
+      "id": "prologue",
+      "chapter": "序章：为什么要选端口？",
+      "kind": "dialog",
+      "lines": {
+        "expert": {
+          "senpai": {"speaker": "温柔学姐", "text": "我们要做的是 MU-MISO FAS 的端口选择：从 Nr 个候选端口里选 Nt 个，最大化 MMSE 下的 sum-rate。难点是组合爆炸 + 互干扰 + 相关性。"},
+          "kouhai": {"speaker": "元气学妹", "text": "目标超直接：Nr 里挑 Nt！但别小看——互干扰和相关性会把你坑得很惨！"},
+          "senior": {"speaker": "稳重师兄", "text": "问题：在 MU-MISO 下进行 FAS 端口选择以最大化 MMSE sum-rate。约束：|S|=Nt。挑战：组合优化 + 相关性 + 干扰耦合。"}
+        },
+        "informed": {
+          "senpai": {"speaker": "温柔学姐", "text": "这篇论文讲的是：基站有很多可切换的天线端口（Nr 个），但只能开 Nt 个。怎么选，才能让多用户同时通信的总速率最高？"},
+          "kouhai": {"speaker": "元气学妹", "text": "想象你有一堆“天线插口”，但只能点亮一小部分！点哪几个，决定了总网速！"},
+          "senior": {"speaker": "稳重师兄", "text": "核心任务：从 Nr 个候选端口选择 Nt 个，使多用户下行的总速率最大。选择会影响用户间干扰与端口相关性。"}
+        },
+        "lay": {
+          "senpai": {"speaker": "温柔学姐", "text": "把它当成“从很多位置里挑几个最合适的发射点”。挑对了，大家都能更顺畅地接收；挑错了，就会互相打扰。"},
+          "kouhai": {"speaker": "元气学妹", "text": "我们要从很多“可选位置”里挑少数几个来发信号！选对=更快更稳，选错=互相干扰！"},
+          "senior": {"speaker": "稳重师兄", "text": "简单说：位置很多，但只能用一小部分。目标是让所有人的总体通信速度尽可能高，同时避免彼此干扰。"}
+        }
+      },
+      "next": "ch1"
+    },
+
+    {
+      "id": "ch1",
+      "chapter": "第一章：系统模型（你到底在选什么）",
+      "kind": "dialog",
+      "lines": {
+        "expert": {
+          "senpai": {"speaker": "温柔学姐", "text": "H∈C^{U×Nr}，选 S 后得到 H_S=H(:,S)。用 MMSE precoding：W=H_S^H(H_S H_S^H + U/ρ I)^{-1}，sum-rate 由 SINR_k(S) 决定。"},
+          "kouhai": {"speaker": "元气学妹", "text": "先把符号摆上：H 是所有用户×所有端口的信道；选了 S 才有 H_S。然后用 MMSE 做预编码！"},
+          "senior": {"speaker": "稳重师兄", "text": "建模：MU-MISO，下行，U 用户，Nr 候选端口，激活 Nt。端口选择决定 H_S，从而影响 MMSE 预编码后的 SINR 与 sum-rate。"}
+        },
+        "informed": {
+          "senpai": {"speaker": "温柔学姐", "text": "论文用一个矩阵 H 表示“每个用户从每个端口收到的信号通道”。你选的端口集合 S 会决定一个缩小后的 H_S，然后用 MMSE 预编码来压干扰。"},
+          "kouhai": {"speaker": "元气学妹", "text": "选端口=决定你“用哪几列信道”！接着用 MMSE 预编码，让用户之间别互相吵架。"},
+          "senior": {"speaker": "稳重师兄", "text": "关键：端口选择改变有效信道 H_S；在给定 precoder（MMSE）下，sum-rate 是 S 的函数。"}
+        },
+        "lay": {
+          "senpai": {"speaker": "温柔学姐", "text": "你可以把 H 想成一张“地图”：每个用户在每个位置上，信号好不好都不一样。选哪些位置来发信号，会影响大家是否容易互相干扰。"},
+          "kouhai": {"speaker": "元气学妹", "text": "就像选几个“音箱位置”给很多人放音乐：摆得好，大家都听得清；摆得差，就互相盖住！"},
+          "senior": {"speaker": "稳重师兄", "text": "这里最重要的是：选择会改变整体“空间布局”，从而改变干扰大小和最终速度。"}
+        }
+      },
+      "next": "q1"
+    },
+
+    {
+      "id": "q1",
+      "chapter": "测验 1：你抓住难点了吗？",
+      "kind": "quiz",
+      "prompt": {
+        "expert": "端口选择的难点主要来自什么？",
+        "informed": "为什么端口选择不是“挑信号最强的几个”就完事？",
+        "lay": "为什么不能只选“看起来最好”的几个位置？"
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "expert": "组合优化+多用户干扰+端口相关性耦合",
+            "informed": "多用户会互相干扰，而且端口之间会相关，强的不一定合适",
+            "lay": "选得太近或太不搭，会让信号互相打扰"
+          },
+          "correct": true,
+          "feedback": {
+            "expert": "对。目标函数是高度非凸的组合问题，且干扰/相关性会改变选择收益。",
+            "informed": "对。强端口如果很像/很相关，会让干扰更大，反而总速率下降。",
+            "lay": "对。位置之间会互相影响，选错组合就会“吵起来”。"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "expert": "只有噪声导致难点",
+            "informed": "主要是噪声太大",
+            "lay": "因为信号总是不够强"
+          },
+          "correct": false,
+          "feedback": {
+            "expert": "不对。噪声是因素之一，但核心难点是组合规模与干扰/相关性耦合。",
+            "informed": "不完全对。噪声存在，但论文强调的是组合爆炸和干扰/相关性。",
+            "lay": "不太对。就算信号强，选的组合不好也会互相干扰。"
+          }
+        }
+      ],
+      "next": "ch2"
+    },
+
+    {
+      "id": "ch2",
+      "chapter": "第二章：老师（SIGS）很强，但太慢",
+      "kind": "dialog",
+      "lines": {
+        "expert": {
+          "senpai": {"speaker": "温柔学姐", "text": "Teacher: perfect-CSI SIGS，逐步加端口，每步选 argmax 增量 MMSE sum-rate；输出 multi-hot y∈{0,1}^{Nr} 监督。瓶颈：重复 rate eval + 矩阵运算。"},
+          "kouhai": {"speaker": "元气学妹", "text": "老师超狠：每一步都试一堆候选端口，看谁让 MMSE sum-rate 增长最大！但代价就是慢。"},
+          "senior": {"speaker": "稳重师兄", "text": "SIGS 作为 near-opt teacher：迭代 Nt 步，每步扫描候选并计算 MMSE sum-rate 增量。在线复杂度随 Nr、U 快速上升。"}
+        },
+        "informed": {
+          "senpai": {"speaker": "温柔学姐", "text": "他们用一个“很强但很慢”的算法当老师：一步一步加端口，每次都计算加入哪个端口能让总速率提升最多。"},
+          "kouhai": {"speaker": "元气学妹", "text": "老师做法=疯狂试！每一步都算一遍速率，挑增益最大的那个端口加入队伍！"},
+          "senior": {"speaker": "稳重师兄", "text": "教师策略依赖完美 CSI，通过迭代贪心近似最优。代价是在线需要大量重复计算。"}
+        },
+        "lay": {
+          "senpai": {"speaker": "温柔学姐", "text": "老师的方法像：每一步都把所有没选过的位置都“试一遍”，看加上哪个位置让总体效果最好，再把它加入。效果好，但特别耗时间。"},
+          "kouhai": {"speaker": "元气学妹", "text": "老师就是“暴力试错”的高手版：每一步都试很多次！所以慢到不适合实时。"},
+          "senior": {"speaker": "稳重师兄", "text": "强基准通常靠反复计算来保证质量，但实时系统更在乎延迟。论文的动机就在这里。"}
+        }
+      },
+      "next": "ch3"
+    },
+
+    {
+      "id": "ch3",
+      "chapter": "第三章：学生（Transformer）一把算完",
+      "kind": "dialog",
+      "lines": {
+        "expert": {
+          "senpai": {"speaker": "温柔学姐", "text": "Student: Transformer encoder over ports-as-tokens. Input X∈R^{Nr×2U} (Re/Im). Output per-port logits s_p; inference top-K to pick Nt ports. Distill teacher multi-hot labels."},
+          "kouhai": {"speaker": "元气学妹", "text": "学生超省事：一次前向就给每个端口打分！然后直接取 Top-Nt！"},
+          "senior": {"speaker": "稳重师兄", "text": "架构：投影层→L 层 encoder（MSA+FFN）→selection head。训练用 multi-hot 标签。推理为单次打分+Top-K。"}
+        },
+        "informed": {
+          "senpai": {"speaker": "温柔学姐", "text": "学生模型把“每个端口”当成一个 token，用 Transformer 去学端口之间的关系（比如相关性、互相干扰的隐含结构）。最后对每个端口输出一个分数。"},
+          "kouhai": {"speaker": "元气学妹", "text": "端口=一排 token！注意力机制会学谁跟谁“太像/太挤”。最后给分数，直接选前 Nt 个！"},
+          "senior": {"speaker": "稳重师兄", "text": "关键思想：把昂贵的迭代搜索压缩成一次性评分函数。离线学，在线快。"}
+        },
+        "lay": {
+          "senpai": {"speaker": "温柔学姐", "text": "学生学会一种“快速打分规则”：你把当前情况喂进去，它就能给每个位置一个“推荐指数”，然后我们选得分最高的那几个。"},
+          "kouhai": {"speaker": "元气学妹", "text": "不用每次都试一遍啦！模型直接给你排行：第一名、第二名……选前 Nt 个就行！"},
+          "senior": {"speaker": "稳重师兄", "text": "把“反复尝试”变成“学出来的经验”，从而把耗时大幅降低。"}
+        }
+      },
+      "next": "q2"
+    },
+
+    {
+      "id": "q2",
+      "chapter": "测验 2：蒸馏在干嘛？",
+      "kind": "quiz",
+      "prompt": {
+        "expert": "Distillation 的 supervision target 是什么？",
+        "informed": "学生模型学的标签来自哪里？",
+        "lay": "学生怎么知道“选哪些位置才好”？"
+      },
+      "options": [
+        {
+          "id": "a",
+          "text": {
+            "expert": "Teacher 生成的端口子集对应的 multi-hot 向量",
+            "informed": "来自老师算法选出的端口集合（多热标签）",
+            "lay": "来自一个很强的“老师”给出的选择答案"
+          },
+          "correct": true,
+          "feedback": {
+            "expert": "对：y∈{0,1}^{Nr}，Σ y_p = Nt。",
+            "informed": "对：老师用迭代贪心近似最优，学生学它的选择结果。",
+            "lay": "对：老师先算出“标准答案”，学生学习这些答案。"
+          }
+        },
+        {
+          "id": "b",
+          "text": {
+            "expert": "随机标签",
+            "informed": "随机生成",
+            "lay": "瞎猜"
+          },
+          "correct": false,
+          "feedback": {
+            "expert": "不对。监督来自 teacher。",
+            "informed": "不对。论文是 supervised distillation。",
+            "lay": "不对。它是学出来的，不是瞎猜。"
+          }
+        }
+      ],
+      "next": "ending"
+    },
+
+    {
+      "id": "ending",
+      "chapter": "终章：你已经掌握主线了",
+      "kind": "ending",
+      "lines": {
+        "expert": {
+          "senpai": {"speaker": "温柔学姐", "text": "要点：用 perfect-CSI SIGS 生成 near-opt subsets，多热监督训练 Transformer；在线一把算出端口分数+Top-K，逼近老师性能但大幅降延迟。"},
+          "kouhai": {"speaker": "元气学妹", "text": "你通关啦！一句话：把慢的贪心搜索“教会”Transformer，让它在线秒选端口！"},
+          "senior": {"speaker": "稳重师兄", "text": "你已完成从问题→教师→学生→复杂度收益的闭环。接下来建议关注：泛化条件、输入特征、attention 的 P^2 规模与实现。"}
+        },
+        "informed": {
+          "senpai": {"speaker": "温柔学姐", "text": "你已经抓住关键思想：离线用强老师产生高质量选择，在线用 Transformer 一次性打分，减少实时计算压力。"},
+          "kouhai": {"speaker": "元气学妹", "text": "恭喜通关！现在你知道它为什么快、为什么还接近最优了！"},
+          "senior": {"speaker": "稳重师兄", "text": "总结：保留强基准的决策质量，同时把在线复杂度从迭代搜索降低为单次推理。"}
+        },
+        "lay": {
+          "senpai": {"speaker": "温柔学姐", "text": "你已经理解主线：先用很强但很慢的方法当老师算答案，再让学生学会快速选位置。你做到这一步已经很厉害了。"},
+          "kouhai": {"speaker": "元气学妹", "text": "你真的读懂了！接下来点按钮，我们去看看你想分享的链接～"},
+          "senior": {"speaker": "稳重师兄", "text": "你完成了核心概念的理解：快速选择是通过“学习老师经验”实现的。继续深入会更有收获。"}
+        }
+      },
+      "cta": {
+        "text": {
+          "expert": "跳转到链接",
+          "informed": "继续",
+          "lay": "出发！"
+        }
+      }
+    }
+  ]
+}

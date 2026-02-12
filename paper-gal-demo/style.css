@@ -1,0 +1,119 @@
+:root{
+  --bg:#0b0e14;
+  --panel:#111827;
+  --panel2:#0f172a;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --accent:#a78bfa;
+  --accent2:#22c55e;
+  --danger:#ef4444;
+  --border:rgba(255,255,255,.08);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1200px 600px at 15% 10%, rgba(167,139,250,.18), transparent 60%),
+              radial-gradient(900px 500px at 85% 35%, rgba(34,197,94,.12), transparent 55%),
+              var(--bg);
+  color:var(--text);
+}
+
+.app{min-height:100%; display:flex; flex-direction:column}
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  background:rgba(17,24,39,.7);
+  backdrop-filter: blur(8px);
+}
+.brand__jp{font-size:12px; color:var(--muted); letter-spacing:.2em}
+.brand__title{font-size:18px; font-weight:800}
+.brand__accent{color:var(--accent)}
+
+.main{flex:1; display:flex; justify-content:center; padding:18px}
+
+.screen{display:none; width:min(980px, 100%)}
+.screen--active{display:block}
+
+.panel{
+  background:linear-gradient(180deg, rgba(17,24,39,.85), rgba(15,23,42,.85));
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+}
+
+.h1{margin:0 0 8px 0}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+
+.grid{display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin:16px 0}
+@media (max-width:720px){.grid{grid-template-columns:1fr}}
+
+.label{display:block; margin-bottom:6px; color:var(--muted); font-size:12px}
+.select{
+  width:100%;
+  padding:10px 12px;
+  background:rgba(0,0,0,.18);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+}
+
+.menuBtns{display:flex; gap:10px; flex-wrap:wrap}
+
+.btn{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.btn:hover{background:rgba(255,255,255,.07)}
+.btn--primary{background:rgba(167,139,250,.18); border-color:rgba(167,139,250,.35)}
+.btn--primary:hover{background:rgba(167,139,250,.24)}
+.btn--ghost{background:transparent}
+.btn--danger{background:rgba(239,68,68,.12); border-color:rgba(239,68,68,.35)}
+
+.vn{
+  background:linear-gradient(180deg, rgba(17,24,39,.78), rgba(15,23,42,.82));
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+}
+.vn__meta{display:flex; gap:8px; margin-bottom:10px}
+.chip{
+  padding:4px 10px;
+  font-size:12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+
+.vn__dialog{background:rgba(0,0,0,.18); border:1px solid var(--border); border-radius:12px; padding:14px}
+.speaker{font-weight:800; margin-bottom:8px}
+.text{line-height:1.7; white-space:pre-wrap}
+
+.choices{margin-top:12px; display:grid; gap:8px}
+.choice{padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.03); cursor:pointer; text-align:left}
+.choice:hover{background:rgba(255,255,255,.06)}
+
+.vn__footer{display:flex; gap:10px; justify-content:flex-end; margin-top:12px; flex-wrap:wrap}
+
+.footer{padding:10px 16px; border-top:1px solid var(--border); color:var(--muted); font-size:12px}
+
+.modal{position:fixed; inset:0; display:none}
+.modal[aria-hidden="false"]{display:block}
+.modal__backdrop{position:absolute; inset:0; background:rgba(0,0,0,.55)}
+.modal__panel{position:relative; width:min(860px, calc(100% - 28px)); margin:60px auto; background:linear-gradient(180deg, rgba(17,24,39,.95), rgba(15,23,42,.95)); border:1px solid var(--border); border-radius:14px; overflow:hidden}
+.modal__header{display:flex; justify-content:space-between; align-items:center; padding:12px 12px; border-bottom:1px solid var(--border)}
+.modal__title{font-weight:800}
+.modal__body{padding:14px; color:var(--text); line-height:1.65}
+.modal__footer{padding:12px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
+
+code{background:rgba(0,0,0,.25); padding:2px 6px; border-radius:8px; border:1px solid var(--border)}

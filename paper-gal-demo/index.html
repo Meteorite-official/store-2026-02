@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paper Galgame</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand__jp" aria-hidden="true">オトメ・ドメイン</div>
+        <div class="brand__title">Paper <span class="brand__accent">Galgame</span></div>
+      </div>
+      <div class="topbar__right">
+        <button id="btnSaves" class="btn btn--ghost" type="button">存档 Saves</button>
+        <button id="btnConfig" class="btn btn--ghost" type="button">设置 Config</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section id="screenMenu" class="screen screen--active">
+        <div class="panel">
+          <h1 class="h1">开始之前</h1>
+          <p class="muted">选择受众档位与引导者形象。互动结构相同，讲解风格会变化。</p>
+
+          <div class="grid">
+            <div>
+              <label class="label">受众 Audience</label>
+              <select id="selAudience" class="select">
+                <option value="expert">同行 / 专家（更短、更专业）</option>
+                <option value="informed">相关人士 / 有基础（适中）</option>
+                <option value="lay">纯外行（科普向，术语尽量少）</option>
+              </select>
+            </div>
+            <div>
+              <label class="label">引导者 Guide</label>
+              <select id="selGuide" class="select">
+                <option value="senpai">温柔学姐</option>
+                <option value="kouhai">元气学妹</option>
+                <option value="senior">稳重师兄</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="menuBtns">
+            <button id="btnStart" class="btn btn--primary" type="button">开始 Start Game</button>
+            <button id="btnContinue" class="btn" type="button">继续 Continue</button>
+          </div>
+
+          <div class="small muted">提示：所有数据保存在本地浏览器（localStorage）。</div>
+        </div>
+      </section>
+
+      <section id="screenGame" class="screen">
+        <div class="vn">
+          <div class="vn__meta">
+            <div class="chip" id="chipChapter">Chapter</div>
+            <div class="chip" id="chipMode">Mode</div>
+          </div>
+
+          <div class="vn__dialog">
+            <div class="speaker" id="speaker">引导者</div>
+            <div class="text" id="text">……</div>
+          </div>
+
+          <div id="choices" class="choices"></div>
+
+          <div class="vn__footer">
+            <button id="btnNext" class="btn btn--primary" type="button">下一句 Next</button>
+            <button id="btnRestart" class="btn btn--danger" type="button">重来 Restart</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screenModal" class="modal" aria-hidden="true">
+        <div class="modal__backdrop" data-close="1"></div>
+        <div class="modal__panel">
+          <div class="modal__header">
+            <div class="modal__title" id="modalTitle">Modal</div>
+            <button class="btn btn--ghost" data-close="1" type="button">关闭</button>
+          </div>
+          <div class="modal__body" id="modalBody"></div>
+          <div class="modal__footer" id="modalFooter"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="muted">Paper Galgame · static demo engine</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
