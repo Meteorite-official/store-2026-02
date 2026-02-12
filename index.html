@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Counter Demo</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>交互计数器</h1>
+    <p class="hint">点击按钮，计数 +1（会自动记住上次的数值）。</p>
+
+    <div class="count" aria-live="polite">
+      <span id="countValue">0</span>
+    </div>
+
+    <div class="row">
+      <button id="incBtn" class="primary">+1</button>
+      <button id="resetBtn" class="ghost">重置</button>
+    </div>
+
+    <p class="small">Repo: Meteorite-official/store-2026-02</p>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
